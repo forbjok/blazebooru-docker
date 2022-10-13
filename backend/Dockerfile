@@ -19,9 +19,9 @@ RUN /build.sh
 
 # Final image
 FROM gcr.io/distroless/static-debian11:latest
-COPY --from=builder /blazebooru/blazebooru_server /blazebooru/blazebooru_server
+COPY --from=builder /blazebooru/blazebooru /blazebooru/
 ENV DATABASE_URL postgres://blazebooru:blazebooru@db/blazebooru
 ENV BLAZEBOORU_FILES_PATH /mnt/data/files
 EXPOSE 3000
 WORKDIR /blazebooru
-CMD ["./blazebooru_server", "--migrate"]
+CMD ["./blazebooru", "--migrate", "server"]
