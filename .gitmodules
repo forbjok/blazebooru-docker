@@ -1,4 +1,4 @@
 [submodule "blazebooru"]
 	path = blazebooru
-	url = git@github.com:forbjok/blazebooru.git
+	url = https://github.com/forbjok/blazebooru.git
 	branch = master
