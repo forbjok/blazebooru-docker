@@ -17,8 +17,10 @@ services:
       - db
     restart: always
     environment:
+      - BLAZEBOORU_CONFIG_PATH=/mnt/config
       - BLAZEBOORU_JWT_SECRET=${BLAZEBOORU_JWT_SECRET}
     volumes:
+      - ${BLAZEBOORU_CONFIG_PATH}:/mnt/config
       - data:/mnt/data
   http:
     build:
