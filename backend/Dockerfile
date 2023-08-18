@@ -1,4 +1,4 @@
-FROM docker.io/clux/muslrust:latest AS chef
+FROM docker.io/clux/muslrust:stable AS chef
 RUN cargo install cargo-chef --locked
 WORKDIR /app
 
