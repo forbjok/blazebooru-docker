@@ -14,8 +14,10 @@ RUN cargo chef cook --release --recipe-path recipe.json
 
 # Build application
 COPY ./blazebooru/backend .
-COPY ./backend/build.sh /build.sh
-RUN /build.sh
+ENV SQLX_OFFLINE true
+RUN cargo build --release
+RUN mkdir -p /blazebooru && cp ./target/x86_64-unknown-linux-musl/release/blazebooru /blazebooru/
+
 
 # Final image
 FROM gcr.io/distroless/static-debian11:latest

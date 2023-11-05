@@ -1,7 +1,12 @@
-FROM docker.io/node:18 AS build
+FROM docker.io/node:18-slim AS build
+ENV PNPM_HOME /pnpm
+ENV PATH $PNPM_HOME:$PATH
+RUN corepack enable
+
 COPY ./blazebooru/frontend /blazebooru/source/frontend
-COPY ./http/build-frontend.sh /build-frontend.sh
-RUN /build-frontend.sh
+WORKDIR /blazebooru/source/frontend
+RUN pnpm install --frozen-lockfile
+RUN pnpm run build-only
 
 FROM docker.io/nginx:mainline-alpine
 COPY --from=build /blazebooru/source/frontend/dist /blazebooru/www
