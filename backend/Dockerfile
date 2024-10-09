@@ -20,7 +20,7 @@ RUN mkdir -p /blazebooru && cp ./target/x86_64-unknown-linux-musl/release/blazeb
 
 
 # Final image
-FROM gcr.io/distroless/static-debian11:latest
+FROM gcr.io/distroless/static-debian12:latest
 COPY --from=builder /blazebooru/blazebooru /blazebooru/
 ENV DATABASE_URL postgres://blazebooru:blazebooru@db/blazebooru
 ENV BLAZEBOORU_FILES_PATH /mnt/data/files
