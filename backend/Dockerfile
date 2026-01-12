@@ -22,6 +22,7 @@ RUN mkdir -p /blazebooru && cp ./target/x86_64-unknown-linux-musl/release/blazeb
 # Final image
 FROM gcr.io/distroless/static-debian12:latest
 COPY --from=builder /blazebooru/blazebooru /blazebooru/
+COPY --from=mwader/static-ffmpeg:latest /ffmpeg /ffprobe /usr/local/bin/
 ENV DATABASE_URL postgres://blazebooru:blazebooru@db/blazebooru
 ENV BLAZEBOORU_FILES_PATH /mnt/data/files
 EXPOSE 3000
