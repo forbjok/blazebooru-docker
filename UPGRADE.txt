@@ -1,0 +1,8 @@
+# Upgrade PostgreSQL database
+docker run -it --rm \
+  -v blazebooru-docker_data:/mnt/data \
+  -e PGDATA=/mnt/data/pgdata \
+  -e POSTGRES_USER=blazebooru \
+  -e POSTGRES_PASSWORD=blazebooru \
+  -e PGAUTO_ONESHOT=yes \
+  docker.io/pgautoupgrade/pgautoupgrade:latest
