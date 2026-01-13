@@ -1,6 +1,19 @@
 services:
+  dbupgrade:
+    image: docker.io/pgautoupgrade/pgautoupgrade:18-alpine
+    restart: no
+    environment:
+      - PGDATA=/mnt/data/pgdata
+      - POSTGRES_USER=blazebooru
+      - POSTGRES_PASSWORD=blazebooru
+      - PGAUTO_ONESHOT=yes
+    volumes:
+      - data:/mnt/data
   db:
     image: docker.io/postgres:18-alpine
+    depends_on:
+      dbupgrade:
+        condition: service_completed_successfully
     restart: always
     environment:
       - PGDATA=/mnt/data/pgdata
