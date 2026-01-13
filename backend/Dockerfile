@@ -24,7 +24,7 @@ FROM gcr.io/distroless/static-debian12:latest
 COPY --from=builder /blazebooru/blazebooru /blazebooru/
 COPY --from=mwader/static-ffmpeg:latest /ffmpeg /ffprobe /usr/local/bin/
 ENV DATABASE_URL postgres://blazebooru:blazebooru@db/blazebooru
-ENV BLAZEBOORU_FILES_PATH /mnt/data/files
+ENV BLAZEBOORU_FILES_PATH /mnt/files
 EXPOSE 3000
 WORKDIR /blazebooru
 CMD ["./blazebooru", "--migrate", "server"]

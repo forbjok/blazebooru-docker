@@ -3,12 +3,11 @@ services:
     image: docker.io/postgres:18-alpine
     restart: always
     environment:
-      - PGDATA=/mnt/data/pgdata
       - POSTGRES_USER=blazebooru
       - POSTGRES_PASSWORD=blazebooru
       - POSTGRES_DB=blazebooru
     volumes:
-      - data:/mnt/data
+      - db:/var/lib/postgresql
   backend:
     build:
       context: .
@@ -21,7 +20,7 @@ services:
       - BLAZEBOORU_JWT_SECRET=${BLAZEBOORU_JWT_SECRET}
     volumes:
       - ${BLAZEBOORU_CONFIG_PATH}:/mnt/config
-      - data:/mnt/data
+      - files:/mnt/files
   http:
     build:
       context: .
@@ -33,7 +32,8 @@ services:
       - "${BLAZEBOORU_PORT}:80"
     volumes:
       - ./http/nginx/conf.d:/etc/nginx/conf.d:ro
-      - data:/mnt/data:ro
+      - files:/mnt/files:ro
 
 volumes:
-  data:
+  db:
+  files:
